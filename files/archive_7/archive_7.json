@@ -1,0 +1,13 @@
+{
+    "title": "Tesco Self Checkout",
+    "description": "Recorded in Tesco Supermarket in London",
+    "location": "Somewhere in London",
+    "archive_id": "archive_7",
+    "date": "22-5-2020",
+    "circle": {
+        "category": "supermarket",
+        "size": "B",
+        "KB_score": 1,
+        "AH_score": 1
+    }
+}

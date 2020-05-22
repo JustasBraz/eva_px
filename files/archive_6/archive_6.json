@@ -1,0 +1,14 @@
+
+{
+    "title": "Sainsbury's Self Checkout",
+    "description": "Recorded in Sainsbury's supermarket in London",
+    "location": "some location",
+    "archive_id": "archive_6",
+    "date": "22-05-2020",
+    "circle": {
+        "category": "supermarket",
+        "size": "A",
+        "KB_score": 1,
+        "AH_score": 3
+    }
+}

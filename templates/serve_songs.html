@@ -1,0 +1,5 @@
+{% for songname, song in songs.items() %}
+<audio controls>
+    <source src="{{ url_for('static', filename=songs/song) }}" type="file/mpeg">
+</audio>
+{% endfor %}
