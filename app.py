@@ -16,6 +16,11 @@ def fileFrontPage():
     #return "hello there"#render_template('fileform.html')
     return render_template('homepage.html')
 
+@app.route("/upload")
+def upload_page():
+    #return "hello there"#render_template('fileform.html')
+    return render_template('upload_page.html')
+
 @app.route("/handleUpload", methods=['POST'])
 def handleFileUpload():
     if ('song' in request.files):

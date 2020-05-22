@@ -288,7 +288,7 @@ class Record {
 
             //MODIFY HTML
             //if(!changed_html){}
-            document.getElementById('text_overlay').style.display = "inline-block"; //none
+            document.getElementById('text_overlay').style.display = "block"; //none
 
             document.getElementById('record_title').innerHTML = this.title;
             document.getElementById('record_description').innerHTML = this.description;
@@ -349,7 +349,7 @@ class Record {
 
             try {
                 let level = amp.getLevel();
-                let size = map(level, 0, 1, this.diameter, this.diameter+20);
+                let size = map(level, 0, 1, this.diameter, this.diameter+30);
                 fill(this.color)
                 ellipse(this.x, this.y, size, size);
                 strokeWeight(0.8);

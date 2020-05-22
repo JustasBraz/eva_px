@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Eva Project X</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;600&display=swap');
+    </style>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 200;
+
+        }
+
+        #upload_form {
+            padding-left: 10em;
+        }
+
+        #form_left {
+            display: inline-block;
+            float: left;
+
+        }
+
+        #form_right {
+            padding-left: 5em;
+
+            display: inline-block;
+            float: left;
+
+
+        }
+
+        .left_label {
+            display: block;
+            padding: 0;
+            margin: 0;
+            outline: 0;
+            border: none;
+            box-sizing: content-box;
+            font-size: medium;
+            text-align: left;
+            line-height: 1.5em;
+
+        }
+
+        input {
+            line-height: 0.5em;
+        }
+
+        #description_box {
+            padding-bottom: 10em;
+        }
+
+
+        .slider {
+            /* -webkit-appearance: none; */
+            width: 50%;
+            /* height: 25px;
+            background: #d3d3d3;
+            outline: none;  */
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .slider::-webkit-slider-thumb {
+            /* -webkit-appearance: none;
+            appearance: none; */
+            /* width: 25px;
+            height: 25px;
+            background: #4CAF50; */
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            /* width: 25px;
+            height: 25px;
+            background: #4CAF50; */
+            cursor: pointer;
+        }
+
+        .inline_form {
+            display: inline-block;
+            float: left;
+            bottom: 0;
+
+        }
+
+        .inline_form_right {
+            display: inline-block;
+            float: right;
+        }
+
+        .dot {
+
+            border-radius: 50%;
+            display: inline-block;
+            background-color: white;
+            border-style: solid;
+            border-width: 1px;
+
+        }
+
+        #dot_rare {
+            height: 25px;
+            width: 25px;
+        }
+
+        #dot_sometimes {
+            height: 50px;
+            width: 50px;
+        }
+
+        #dot_often {
+            height: 75px;
+            width: 75px;
+        }
+
+        #frequency_sometimes {
+            padding-top: 25px;
+        }
+
+        #frequency_rare {
+            padding-top: 50px;
+
+        }
+    </style>
+
+
+<body>
+    <div id="container"></div>
+
+    <div id="upload_form">
+        <h2>
+            UPLOAD DETAILS
+        </h2>
+
+        <h2>
+            ADD A NEW RECORDING
+        </h2>
+        <form action="/handleUpload" method="post" enctype="multipart/form-data">
+            <div id='form_left'>
+                <label class='left_label' for="title">title:</label>
+                <input type="text" name="title" required><br>
+
+                <label class='left_label' for="type">type:</label>
+                <input type="text" name="type" required><br>
+
+                <label class='left_label' for="description">description:</label>
+                <textarea rows="5" cols="22" type="text" name="description" required></textarea><br>
+                <!-- <input id='description_box' type="text" name="description" required><br> -->
+
+                <label class='left_label' for="location">location:</label>
+                <input type="text" name="location" required><br>
+
+                <label class='left_label' for="language">language:</label>
+                <input type="text" name="language"><br>
+
+                <label class='left_label' for="mem_sentence_1">memorable sentence:</label>
+                <input type="text" name="mem_sentence_1"><br>
+
+                <label class='left_label' for="mem_sentence_2">memorable sentence:</label>
+                <input type="text" name="mem_sentence_2"><br>
+
+                <label class='left_label' for="mem_sentence_3">memorable sentence:</label>
+                <input type="text" name="mem_sentence_3"><br>
+
+            </div>
+            <div id='form_right'>
+                <p>1. How would you rate voice on the recording?</p>
+                <label for="KB">a) In what way does it give instructions or inform you? (0 Kind, 5 Bossy)</label>
+                <input type="range" id="KB_slider" name="KB" min="0" max="5" class="slider" required>
+                <span>Value:&nbsp;&nbsp;&nbsp; <span id="KB_value"></span></span><br>
+
+                <br>
+
+                <label for="AH">b) How does the voice sound like? (0 Natural, 5 Artificial)</label>
+                <input type="range" id="AH_slider" name="AH" min="0" max="5" class="slider" required>
+                <span>Value:&nbsp;&nbsp;&nbsp; <span id="AH_value"></span></span><br>
+
+                <p>2. Where do you hear this voice?</p>
+                <input type="radio" id="transport" name="location" value="transport">
+                <label for="transport">transport (buses, trains, stations, airports)</label><br>
+                <input type="radio" id="supermarket" name="location" value="supermarket">
+                <label for="supermarket">supermarket</label><br>
+                <input type="radio" id="other" name="location" value="other">
+                <label for="other">other</label>
+
+                <!-- <label for="transport">transport (buses, trains, stations, airports)</label>
+                <input type="radio" name="transport" id="transport" value="transport">
+
+                <label for="transport">transport (buses, trains, stations, airports)</label>
+                <input type="radio" name="supermarket" id="supermarket" value="supermarket">
+
+                <label for="other">other</label>
+                <input type="radio" name="other" id="other" value="other"><br> -->
+
+                <p>3. How often do you hear this voice?</p>
+
+                <label class='inline_form' id='frequency_often' for="male"><span class="dot" id='dot_often'></span>often         </label>
+                <input class='inline_form' type="radio" name="gender" id="male" value="male">
+
+
+                <label class='inline_form' id='frequency_sometimes' for="female"><span class="dot"  id='dot_sometimes'></span>sometimes         </label>
+                <input class='inline_form' type="radio" name="gender" id="female" value="female">
+
+                <label class='inline_form' id='frequency_rare' for="other"><span class="dot" id='dot_rare'></span>rare         </label>
+                <input class='inline_form' type="radio" name="gender" id="other" value="other"><br><br>
+
+                <br><br><br><br>
+                <label for="song">choose your file:</label>
+                <input type="file" name="song" required /><br><br>
+
+                <input type="submit" value="Upload" required />
+            </div>
+        </form>
+    </div>
+    <script>
+        var KB_slider = document.getElementById("KB_slider");
+        var KB_output = document.getElementById("KB_value");
+        KB_output.innerHTML = KB_slider.value; // Display the default slider value
+
+        // Update the current slider value (each time you drag the slider handle)
+        KB_slider.oninput = function () {
+            KB_output.innerHTML = this.value;
+
+            var AH_slider = document.getElementById("AH_slider");
+            var AH_output = document.getElementById("AH_value");
+            AH_output.innerHTML = AH_slider.value; // Display the default slider value
+
+            // Update the current slider value (each time you drag the slider handle)
+            AH_slider.oninput = function () {
+                AH_output.innerHTML = this.value;
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>
