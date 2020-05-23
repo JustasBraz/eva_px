@@ -64,48 +64,6 @@ def handleFileUpload():
    
     return redirect(url_for('fileFrontPage'))
 
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-def create_json_file(request,new_archive,archive_id):
-    today=date.today()
-    d1 = today.strftime("%d-%m-%Y")
-    try:
-        new_dict={
-            'title': request.args['title'],
-            'description': request.args['description'],
-            "location": request.args['location'],
-        "archive_id":'archive_'+archive_id,
-        "date": d1,
-            'circle':{
-                'category': request.args['category'],
-                'frequency': request.args['frequency'],
-                'KB_score': int(request.args['KB']),
-                'AH_score': int(request.args['AH'])
-                }
-            }
-
-        try:
-            new_dict['mem_sentence_1']=request.args['mem_sentence_1']
-            new_dict['mem_sentence_2']=request.args['mem_sentence_2']
-            new_dict['mem_sentence_3']=request.args['mem_sentence_3']
-
-        except:
-            print('No memorable sentence')
-
-        with open(new_archive+'/'+'archive_'+archive_id+'.json', 'w') as json_file:
-            json.dump(new_dict, json_file)
-        #mandatory
-        print('Title', request.args['title'])
-        print('description', request.args['description'])
-        print('location', request.args['location'])
-
-        print(new_dict)
-        return True
-    except:
-        print('problem with data')
-        return False
 ########################
 #   MAIN API ROUTES    #
 ########################
@@ -166,13 +124,54 @@ def create_new_archive():
     return path,next_id
 
 #def fill_json():
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def create_json_file(request,new_archive,archive_id):
+    today=date.today()
+    d1 = today.strftime("%d-%m-%Y")
+    try:
+        new_dict={
+            'title': request.args['title'],
+            'description': request.args['description'],
+            "location": request.args['location'],
+        "archive_id":'archive_'+archive_id,
+        "date": d1,
+            'circle':{
+                'category': request.args['category'],
+                'frequency': request.args['frequency'],
+                'KB_score': int(request.args['KB']),
+                'AH_score': int(request.args['AH'])
+                }
+            }
+
+        try:
+            new_dict['mem_sentence_1']=request.args['mem_sentence_1']
+            new_dict['mem_sentence_2']=request.args['mem_sentence_2']
+            new_dict['mem_sentence_3']=request.args['mem_sentence_3']
+
+        except:
+            print('No memorable sentence')
+
+        with open(new_archive+'/'+'archive_'+archive_id+'.json', 'w') as json_file:
+            json.dump(new_dict, json_file)
+        #mandatory
+        print('Title', request.args['title'])
+        print('description', request.args['description'])
+        print('location', request.args['location'])
+
+        print(new_dict)
+        return True
+    except:
+        print('problem with data')
+        return False
 
 
 
 if __name__ == '__main__':
     print("Eva PX starting...")
 
-    app.run(host="127.0.0.1",port=5000,debug=DEBUG)
-
+    #app.run(host="127.0.0.1",port=5000,debug=DEBUG)
+    app.run()
 

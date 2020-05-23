@@ -1,4 +1,4 @@
-URL_JSON = "http://127.0.0.1:5000/backlog"
+URL_JSON = "/backlog"
 
 var CLICKED = false;;
 
@@ -71,7 +71,7 @@ function loadData() {
 }
 
 function generate_coordinates(lims) {
-    let MAX_RADIUS = 6
+    let MAX_RADIUS = 20
     var x, y;
 
     function generate() {
