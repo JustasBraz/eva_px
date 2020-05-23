@@ -41,15 +41,6 @@
 
 
         }
-
-        #text_overlay {
-
-            text-align: justify;
-            position: relative;
-            padding-left: 5em;
-            
-        }
-
         .inline {
             display: inline-block;
 
@@ -77,19 +68,42 @@
         .sub_header_links {
             display: inline-block;
             padding-right: 5em;
-
+            color: black;
 
         }
 
         .sub_header_links:hover {
+
+            display: inline-block;
+            color: gray;
+            font-family: 'Raleway';
+            font-weight: 600;
+        }
+
+        .anchor_header {
+            text-decoration: none;
+            color: black;
+        }
+
+        .anchor_header:hover {
+
             display: inline-block;
 
             color: gray;
             font-family: 'Raleway';
             font-weight: 600;
-
-
         }
+
+        #text_overlay {
+
+            text-align: justify;
+            position: relative;
+            padding-left: 5em;
+            background-color: rgba(255,255,255, .7) ;
+            
+        }
+
+       
     </style>
     <!-- <link type="text/css" rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}"> -->
     <script type='text/javascript' src="{{ url_for('static',filename='js/p5/p5.min.js') }}"></script>
@@ -128,10 +142,11 @@
         </div>
 
         <div id='sub_header'>
-            <h3 class='sub_header_links'>ABOUT</h3>
-            <h3 class='sub_header_links'>RESEARCH</h3>
-            <h3 class='sub_header_links'>HOME</h3>
+            <h3 class='sub_header_links'><a class='anchor_header' href="/about">ABOUT</a></h3>
+            <h3 class='sub_header_links'><a class='anchor_header' href="/upload">UPLOAD</a></h3>
+            <h3 class='sub_header_links'><a class='anchor_header' href="/">HOME</a></h3>
         </div>
+
 
 
     </div>

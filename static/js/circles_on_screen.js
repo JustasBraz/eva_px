@@ -2,6 +2,7 @@ URL_JSON = "http://127.0.0.1:5000/backlog"
 
 var CLICKED = false;;
 
+
 let data = {}; // Global object to hold results from the loadJSON call
 let circles = []; // Global array to hold all bubble objects
 
@@ -12,6 +13,8 @@ var w = window.innerWidth;
 var h = window.innerHeight;
 var canvas;
 
+
+var mid_value = 3;
 
 var song;
 var amp;
@@ -33,7 +36,7 @@ function loadData() {
 
         console.log(circle.title)
         let color = get_category(circle.circle.category)
-        let r = get_radius(circle.circle.size)
+        let r = get_radius(circle.circle.frequency)
 
         let KB_json = circle.circle.KB_score;
         let AH_json = circle.circle.AH_score;
@@ -120,13 +123,13 @@ function get_category(categ_json) {
 function get_radius(r_json) {
 
     switch (r_json) {
-        case 'A': //often
+        case 'often': //often
             return 40
 
-        case 'B': //sometimes
+        case 'sometimes': //sometimes
             return 15
 
-        case 'C': //rare
+        case 'rare': //rare
             return 5
 
         default:
@@ -138,8 +141,7 @@ function get_radius(r_json) {
 function determine_quadrant(KB, AH) {
     //KB Kind-Bossy
     //AH Artificial human
-    AH
-    let mid_value = 2
+  
     let w_offset = 0.05 * w;
     let h_offset = 0.1 * h;
     let q1 = [w_offset, h_offset, width / 2, height / 2];
@@ -195,7 +197,7 @@ function quadrant_text() {
 }
 
 function setup() {
-    canvas = createCanvas(w, h);
+    canvas = createCanvas(w,h);
     canvas.position(0, 50);
     canvas.style('z-index', '-1')
     loadData();
@@ -317,7 +319,7 @@ class Record {
                     }
                     song_loading=true;
     
-                    song = loadSound('static/songs/' + this.id + '.mp3', song_loaded);
+                    song = loadSound('static/files/'+ this.id +'/' + this.id + '.mp3', song_loaded);
                     //files/'+this.id+'/'+this.id+'.mp3
                     //static/songs/t
                     console.log(song);
@@ -391,4 +393,5 @@ window.onresize = function () {
     w = window.innerWidth;
     h = window.innerHeight;
     canvas.size(w, h);
+    location.reload(true)
 }

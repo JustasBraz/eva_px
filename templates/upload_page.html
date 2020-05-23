@@ -7,6 +7,7 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;600&display=swap');
     </style>
+      <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
 
     <style>
         body {
@@ -16,23 +17,101 @@
 
         }
 
+        .italic {
+            display: inline-block;
+
+            font-style: italic;
+        }
+
+        .regular_header {
+
+            display: inline-block;
+        }
+
+        #header,
+        #sub_header {
+
+            display: inline-block;
+
+
+        }
+
+        .inline {
+            display: inline-block;
+
+
+        }
+
+        #sub_header_main {
+            display: inline-block;
+
+            padding-left: 5em;
+
+        }
+
+        #sub_header {
+            display: inline-block;
+
+            /* padding-right: 25em; */
+            /* position:relative; */
+            padding-left: 20em;
+
+            /* left:50%; */
+
+        }
+
+        .sub_header_links {
+            display: inline-block;
+            padding-right: 5em;
+            color: black;
+
+        }
+
+        .sub_header_links:hover {
+
+            display: inline-block;
+            color: gray;
+            font-family: 'Raleway';
+            font-weight: 600;
+        }
+
+        .anchor_header {
+            text-decoration: none;
+            color: black;
+        }
+
+        .anchor_header:hover {
+
+            display: inline-block;
+
+            color: gray;
+            font-family: 'Raleway';
+            font-weight: 600;
+        }
+
         #upload_form {
-            padding-left: 10em;
+            padding-left: 5em;
         }
 
         #form_left {
             display: inline-block;
+            width: 20em;
+            padding-right: 5em;
             float: left;
 
         }
 
         #form_right {
-            padding-left: 5em;
+            /* padding-left: 5em; */
 
             display: inline-block;
             float: left;
 
 
+        }
+
+        #upload_button {
+            width: 5em;
         }
 
         .left_label {
@@ -48,8 +127,15 @@
 
         }
 
-        input {
+        #form_left input {
+            width: 100%;
+
             line-height: 0.5em;
+        }
+
+        textarea {
+            width: 100%;
+
         }
 
         #description_box {
@@ -138,16 +224,34 @@
 
 <body>
     <div id="container"></div>
+    <div id='header'>
+
+        <div id='sub_header_main'>
+            <h1 class='regular_header'>
+                SOUND ARCHIVE:&nbsp;
+            </h1>
+
+            <h1 class='italic'>
+                SOUND ARCHIVE
+            </h1>
+        </div>
+
+        <div id='sub_header'>
+            <h3 class='sub_header_links'><a class='anchor_header' href="/about">ABOUT</a></h3>
+            <h3 class='sub_header_links'><a class='anchor_header' href="/upload">UPLOAD</a></h3>
+            <h3 class='sub_header_links'><a class='anchor_header' href="/">HOME</a></h3>
+        </div>
+
+
+    </div>
+
 
     <div id="upload_form">
         <h2>
-            UPLOAD DETAILS
+            UPLOAD A NEW RECORDING
         </h2>
 
-        <h2>
-            ADD A NEW RECORDING
-        </h2>
-        <form action="/handleUpload" method="post" enctype="multipart/form-data">
+        <form id='data' action="/handleUpload" method="post" enctype="multipart/form-data"  onsubmit="process()">
             <div id='form_left'>
                 <label class='left_label' for="title">title:</label>
                 <input type="text" name="title" required><br>
@@ -156,23 +260,23 @@
                 <input type="text" name="type" required><br>
 
                 <label class='left_label' for="description">description:</label>
-                <textarea rows="5" cols="22" type="text" name="description" required></textarea><br>
+                <textarea rows="5" type="text" name="description" required></textarea><br>
                 <!-- <input id='description_box' type="text" name="description" required><br> -->
 
                 <label class='left_label' for="location">location:</label>
                 <input type="text" name="location" required><br>
 
                 <label class='left_label' for="language">language:</label>
-                <input type="text" name="language"><br>
+                <input type="text" name="language" placeholder="Optional"><br>
 
                 <label class='left_label' for="mem_sentence_1">memorable sentence:</label>
-                <input type="text" name="mem_sentence_1"><br>
+                <input type="text" name="mem_sentence_1" placeholder="Optional"><br>
 
                 <label class='left_label' for="mem_sentence_2">memorable sentence:</label>
-                <input type="text" name="mem_sentence_2"><br>
+                <input type="text" name="mem_sentence_2" placeholder="Optional" ><br>
 
                 <label class='left_label' for="mem_sentence_3">memorable sentence:</label>
-                <input type="text" name="mem_sentence_3"><br>
+                <input type="text" name="mem_sentence_3" placeholder="Optional" ><br>
 
             </div>
             <div id='form_right'>
@@ -188,11 +292,11 @@
                 <span>Value:&nbsp;&nbsp;&nbsp; <span id="AH_value"></span></span><br>
 
                 <p>2. Where do you hear this voice?</p>
-                <input type="radio" id="transport" name="location" value="transport">
+                <input type="radio" id="transport" name="category" value="transport" checked="checked" required>
                 <label for="transport">transport (buses, trains, stations, airports)</label><br>
-                <input type="radio" id="supermarket" name="location" value="supermarket">
+                <input type="radio" id="supermarket" name="category" value="supermarket" required>
                 <label for="supermarket">supermarket</label><br>
-                <input type="radio" id="other" name="location" value="other">
+                <input type="radio" id="other" name="category" value="other" required>
                 <label for="other">other</label>
 
                 <!-- <label for="transport">transport (buses, trains, stations, airports)</label>
@@ -205,25 +309,60 @@
                 <input type="radio" name="other" id="other" value="other"><br> -->
 
                 <p>3. How often do you hear this voice?</p>
+                <!-- name="genderS" value="1" checked="checked" -->
+                <label class='inline_form' id='frequency_often' for="often"><span class="dot" id='dot_often'></span>often
+                </label>
+                <input class='inline_form' type="radio" name="frequency" id="often" value="often" checked="checked" required>
 
-                <label class='inline_form' id='frequency_often' for="male"><span class="dot" id='dot_often'></span>often         </label>
-                <input class='inline_form' type="radio" name="gender" id="male" value="male">
 
+                <label class='inline_form' id='frequency_sometimes' for="sometimes"><span class="dot"
+                        id='dot_sometimes'></span>sometimes </label>
+                <input class='inline_form' type="radio" name="frequency" id="sometimes" value="sometimes" required>
 
-                <label class='inline_form' id='frequency_sometimes' for="female"><span class="dot"  id='dot_sometimes'></span>sometimes         </label>
-                <input class='inline_form' type="radio" name="gender" id="female" value="female">
-
-                <label class='inline_form' id='frequency_rare' for="other"><span class="dot" id='dot_rare'></span>rare         </label>
-                <input class='inline_form' type="radio" name="gender" id="other" value="other"><br><br>
+                <label class='inline_form' id='frequency_rare' for="rare"><span class="dot" id='dot_rare'></span>rare
+                </label>
+                <input class='inline_form' type="radio" name="frequency" id="rare" value="rare" required><br><br>
 
                 <br><br><br><br>
                 <label for="song">choose your file:</label>
                 <input type="file" name="song" required /><br><br>
 
-                <input type="submit" value="Upload" required />
+                <input id='upload_button' type="submit" value="Upload" required />
             </div>
         </form>
     </div>
+    <script>
+        
+        function process() {
+  var form = document.getElementById('data');
+  var elements = form.elements;
+  var values = [];
+  already_checked_cat=false;
+  already_checked_freq=false;
+
+  for (var i = 0; i < elements.length; i++){
+    //document.querySelector('input[name=genderS]:checked').value
+            console.log(elements[i])
+              if (elements[i].name == 'frequency' && already_checked_freq==false) {
+                    value = document.querySelector('input[name=frequency]:checked').value;
+                    values.push(encodeURIComponent(elements[i].name) + '=' + encodeURIComponent(value));
+                    already_checked_freq=true;
+            }
+                if (elements[i].name == 'category'  && already_checked_cat==false) {
+                    value = document.querySelector('input[name=category]:checked').value;
+                    values.push(encodeURIComponent(elements[i].name) + '=' + encodeURIComponent(value));
+                    already_checked_cat=true;
+
+
+                }else{
+                    values.push(encodeURIComponent(elements[i].name) + '=' + encodeURIComponent(elements[i].value));
+
+                }
+  }
+  form.action += '?' + values.join('&');
+
+}
+    </script>
     <script>
         var KB_slider = document.getElementById("KB_slider");
         var KB_output = document.getElementById("KB_value");
