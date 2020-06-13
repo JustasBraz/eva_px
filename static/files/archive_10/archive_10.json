@@ -1,0 +1,16 @@
+{
+    "title": "Greenford Train",
+    "description": "Train Carriage Announcements",
+    "location": "online",
+    "archive_id": "archive_10",
+    "date": "27-05-2020",
+    "circle": {
+        "category": "transportation",
+        "frequency": "rare",
+        "KB_score": 2,
+        "AH_score": 1
+    },
+    "language":"English",
+    "mem_sentences":" "
+
+}

@@ -1,0 +1,16 @@
+{
+    "title": "Southampton",
+    "description": "Train Station Announcements",
+    "location": "online",
+    "archive_id": "archive_11",
+    "date": "27-05-2020",
+    "circle": {
+        "category": "transportation",
+        "frequency": "rare",
+        "KB_score": 4,
+        "AH_score": 3
+    },
+    "language":"English",
+    "mem_sentences":" "
+
+}

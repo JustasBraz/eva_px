@@ -3,237 +3,27 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Eva Project X</title>
+    <title>sound archive</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;600&display=swap');
     </style>
-      <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+    <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/main_css.css') }}?v=0.0.1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/upload_css.css') }}?v=0.0.1">
 
     <style>
-        body {
-            margin: 0;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 200;
-
-        }
-
-        .italic {
-            display: inline-block;
-
-            font-style: italic;
-        }
-
-        .regular_header {
-
-            display: inline-block;
-        }
-
-        #header,
-        #sub_header {
-
-            display: inline-block;
 
 
-        }
-
-        .inline {
-            display: inline-block;
-
-
-        }
-
-        #sub_header_main {
-            display: inline-block;
-
-            padding-left: 5em;
-
-        }
-
-        #sub_header {
-            display: inline-block;
-
-            /* padding-right: 25em; */
-            /* position:relative; */
-            padding-left: 20em;
-
-            /* left:50%; */
-
-        }
-
-        .sub_header_links {
-            display: inline-block;
-            padding-right: 5em;
-            color: black;
-
-        }
-
-        .sub_header_links:hover {
-
-            display: inline-block;
-            color: gray;
-            font-family: 'Raleway';
-            font-weight: 600;
-        }
-
-        .anchor_header {
-            text-decoration: none;
-            color: black;
-        }
-
-        .anchor_header:hover {
-
-            display: inline-block;
-
-            color: gray;
-            font-family: 'Raleway';
-            font-weight: 600;
-        }
-
-        #upload_form {
-            padding-left: 5em;
-        }
-
-        #form_left {
-            display: inline-block;
-            width: 20em;
-            padding-right: 5em;
-            float: left;
-
-        }
-
-        #form_right {
-            /* padding-left: 5em; */
-
-            display: inline-block;
-            float: left;
-
-
-        }
-
-        #upload_button {
-            width: 5em;
-        }
-
-        .left_label {
-            display: block;
-            padding: 0;
-            margin: 0;
-            outline: 0;
-            border: none;
-            box-sizing: content-box;
-            font-size: medium;
-            text-align: left;
-            line-height: 1.5em;
-
-        }
-
-        #form_left input {
-            width: 100%;
-
-            line-height: 0.5em;
-        }
-
-        textarea {
-            width: 100%;
-
-        }
-
-        #description_box {
-            padding-bottom: 10em;
-        }
-
-
-        .slider {
-            /* -webkit-appearance: none; */
-            width: 50%;
-            /* height: 25px;
-            background: #d3d3d3;
-            outline: none;  */
-            opacity: 0.7;
-            -webkit-transition: .2s;
-            transition: opacity .2s;
-        }
-
-        .slider:hover {
-            opacity: 1;
-        }
-
-        .slider::-webkit-slider-thumb {
-            /* -webkit-appearance: none;
-            appearance: none; */
-            /* width: 25px;
-            height: 25px;
-            background: #4CAF50; */
-            cursor: pointer;
-        }
-
-        .slider::-moz-range-thumb {
-            /* width: 25px;
-            height: 25px;
-            background: #4CAF50; */
-            cursor: pointer;
-        }
-
-        .inline_form {
-            display: inline-block;
-            float: left;
-            bottom: 0;
-
-        }
-
-        .inline_form_right {
-            display: inline-block;
-            float: right;
-        }
-
-        .dot {
-
-            border-radius: 50%;
-            display: inline-block;
-            background-color: white;
-            border-style: solid;
-            border-width: 1px;
-
-        }
-
-        #dot_rare {
-            height: 25px;
-            width: 25px;
-        }
-
-        #dot_sometimes {
-            height: 50px;
-            width: 50px;
-        }
-
-        #dot_often {
-            height: 75px;
-            width: 75px;
-        }
-
-        #frequency_sometimes {
-            padding-top: 25px;
-        }
-
-        #frequency_rare {
-            padding-top: 50px;
-
-        }
     </style>
 
 
 <body>
     <div id="container"></div>
+
     <div id='header'>
 
         <div id='sub_header_main'>
-            <h1 class='regular_header'>
-                SOUND ARCHIVE:&nbsp;
-            </h1>
-
-            <h1 class='italic'>
-                SOUND ARCHIVE
-            </h1>
+            <h1 class='regular_header'>sound archive: DISEMBODIED FEMALE VOICE</h1>
         </div>
 
         <div id='sub_header'>
@@ -241,8 +31,6 @@
             <h3 class='sub_header_links'><a class='anchor_header' href="/upload">UPLOAD</a></h3>
             <h3 class='sub_header_links'><a class='anchor_header' href="/">HOME</a></h3>
         </div>
-
-
     </div>
 
 
@@ -251,66 +39,51 @@
             UPLOAD A NEW RECORDING
         </h2>
 
-        <form id='data' action="/handleUpload" method="post" enctype="multipart/form-data"  onsubmit="process()">
+        <form id='data' action="/handleUpload" method="post" enctype="multipart/form-data" onsubmit="process()">
+
             <div id='form_left'>
-                <label class='left_label' for="title">title:</label>
-                <input type="text" name="title" required><br>
 
-                <label class='left_label' for="type">type:</label>
-                <input type="text" name="type" required><br>
 
-                <label class='left_label' for="description">description:</label>
-                <textarea rows="5" type="text" name="description" required></textarea><br>
-                <!-- <input id='description_box' type="text" name="description" required><br> -->
+                <p>1. Where do you hear this voice?</p>
+                <input type="radio" id="transportation" name="category" value="transportation" checked="checked" required>
+                <label for="transportation">public transport (e.g. buses, trains, stations)</label>
+                <br>
+                <input type="radio" id="supermarket" name="category" value="supermarket" required>
+                <label for="supermarket">supermarket</label>
+                <br>
+                <input type="radio" id="other" name="category" value="other" required>
+                <label for="other">other (e.g. airports)</label>
+                <br>
 
-                <label class='left_label' for="location">location:</label>
-                <input type="text" name="location" required><br>
+                <br>
+                <p>2. How often do you hear this voice?</p>
+                <input type="radio" id="often" name="frequency" value="often" checked="checked" required>
+                <label for="often">often</label>
+                <br>
+                <input type="radio" id="sometimes" name="frequency" value="sometimes" required>
+                <label for="sometimes">sometimes</label>
+                <br>
+                <input type="radio" id="rare" name="frequency" value="rare" required>
+                <label for="rare">rare</label>
+                <br>
+                <br>
 
-                <label class='left_label' for="language">language:</label>
-                <input type="text" name="language" placeholder="Optional"><br>
-
-                <label class='left_label' for="mem_sentence_1">memorable sentence:</label>
-                <input type="text" name="mem_sentence_1" placeholder="Optional"><br>
-
-                <label class='left_label' for="mem_sentence_2">memorable sentence:</label>
-                <input type="text" name="mem_sentence_2" placeholder="Optional" ><br>
-
-                <label class='left_label' for="mem_sentence_3">memorable sentence:</label>
-                <input type="text" name="mem_sentence_3" placeholder="Optional" ><br>
-
-            </div>
-            <div id='form_right'>
-                <p>1. How would you rate voice on the recording?</p>
-                <label for="KB">a) In what way does it give instructions or inform you? (0 Kind, 5 Bossy)</label>
+                <p>3. How would you rate voice on the recording?</p>
+                <label for="KB" class='sub_question'>a) In what way does it give instructions or inform you?</label><br>
+                <span class='minified'>Benevolent</span>
                 <input type="range" id="KB_slider" name="KB" min="0" max="5" class="slider" required>
-                <span>Value:&nbsp;&nbsp;&nbsp; <span id="KB_value"></span></span><br>
+                <span class='minified'>Authoritarian</span><br>
 
                 <br>
 
-                <label for="AH">b) How does the voice sound like? (0 Natural, 5 Artificial)</label>
+                <label for="AH" class='sub_question'>b) How does the voice sound like? </label><br>
+                <span class='minified'>Natural</span>
                 <input type="range" id="AH_slider" name="AH" min="0" max="5" class="slider" required>
-                <span>Value:&nbsp;&nbsp;&nbsp; <span id="AH_value"></span></span><br>
+                <span class='minified'>Artificial</span><br>
 
-                <p>2. Where do you hear this voice?</p>
-                <input type="radio" id="transport" name="category" value="transport" checked="checked" required>
-                <label for="transport">transport (buses, trains, stations, airports)</label><br>
-                <input type="radio" id="supermarket" name="category" value="supermarket" required>
-                <label for="supermarket">supermarket</label><br>
-                <input type="radio" id="other" name="category" value="other" required>
-                <label for="other">other</label>
 
-                <!-- <label for="transport">transport (buses, trains, stations, airports)</label>
-                <input type="radio" name="transport" id="transport" value="transport">
-
-                <label for="transport">transport (buses, trains, stations, airports)</label>
-                <input type="radio" name="supermarket" id="supermarket" value="supermarket">
-
-                <label for="other">other</label>
-                <input type="radio" name="other" id="other" value="other"><br> -->
-
-                <p>3. How often do you hear this voice?</p>
                 <!-- name="genderS" value="1" checked="checked" -->
-                <label class='inline_form' id='frequency_often' for="often"><span class="dot" id='dot_often'></span>often
+                <!-- <label class='inline_form' id='frequency_often' for="often"><span class="dot" id='dot_often'></span>often
                 </label>
                 <input class='inline_form' type="radio" name="frequency" id="often" value="often" checked="checked" required>
 
@@ -321,68 +94,94 @@
 
                 <label class='inline_form' id='frequency_rare' for="rare"><span class="dot" id='dot_rare'></span>rare
                 </label>
-                <input class='inline_form' type="radio" name="frequency" id="rare" value="rare" required><br><br>
+                <input class='inline_form' type="radio" name="frequency" id="rare" value="rare" required><br><br> -->
 
-                <br><br><br><br>
+                <br><br>
                 <label for="song">choose your file:</label>
                 <input type="file" name="song" required /><br><br>
 
-                <input id='upload_button' type="submit" value="Upload" required />
+                <input id='upload_button' type="submit" value="Submit" required />
+
+
+            </div>
+
+            <div id='form_right'>
+                <label class='left_label' for="title">title:</label>
+                <input type="text" name="title" required placeholder="Required"><br>
+
+                <label class='left_label' for="location">location:</label>
+                <input type="text" name="location" required placeholder="Required"><br>
+
+                <!-- <label class='left_label' for="type">type:</label>
+                <input type="text" name="type" required><br> -->
+
+                <label class='left_label' for="description">description:</label>
+                <textarea class='txt_area' rows="5" type="text" name="description" placeholder="Optional"></textarea><br>
+                <!-- <input id='description_box' type="text" name="description" required><br> -->
+
+
+
+                <label class='left_label' for="language">language:</label>
+                <input type="text" name="language" placeholder="Optional"><br>
+
+                <label class='left_label' for="mem_sentence">memorable sentences:</label>
+                <textarea class='txt_area' rows="5" type="text" name="mem_sentence" placeholder="Optional"></textarea><br>
+
+
             </div>
         </form>
     </div>
     <script>
-        
         function process() {
-  var form = document.getElementById('data');
-  var elements = form.elements;
-  var values = [];
-  already_checked_cat=false;
-  already_checked_freq=false;
+            var form = document.getElementById('data');
+            var elements = form.elements;
+            var values = [];
+            already_checked_cat = false;
+            already_checked_freq = false;
 
-  for (var i = 0; i < elements.length; i++){
-    //document.querySelector('input[name=genderS]:checked').value
-            console.log(elements[i])
-              if (elements[i].name == 'frequency' && already_checked_freq==false) {
+            for (var i = 0; i < elements.length; i++) {
+                //document.querySelector('input[name=genderS]:checked').value
+                console.log(elements[i])
+                if (elements[i].name == 'frequency' && already_checked_freq == false) {
                     value = document.querySelector('input[name=frequency]:checked').value;
                     values.push(encodeURIComponent(elements[i].name) + '=' + encodeURIComponent(value));
-                    already_checked_freq=true;
-            }
-                if (elements[i].name == 'category'  && already_checked_cat==false) {
+                    already_checked_freq = true;
+                }
+                if (elements[i].name == 'category' && already_checked_cat == false) {
                     value = document.querySelector('input[name=category]:checked').value;
                     values.push(encodeURIComponent(elements[i].name) + '=' + encodeURIComponent(value));
-                    already_checked_cat=true;
+                    already_checked_cat = true;
 
 
-                }else{
+                } else {
                     values.push(encodeURIComponent(elements[i].name) + '=' + encodeURIComponent(elements[i].value));
 
                 }
-  }
-  form.action += '?' + values.join('&');
-
-}
-    </script>
-    <script>
-        var KB_slider = document.getElementById("KB_slider");
-        var KB_output = document.getElementById("KB_value");
-        KB_output.innerHTML = KB_slider.value; // Display the default slider value
-
-        // Update the current slider value (each time you drag the slider handle)
-        KB_slider.oninput = function () {
-            KB_output.innerHTML = this.value;
-
-            var AH_slider = document.getElementById("AH_slider");
-            var AH_output = document.getElementById("AH_value");
-            AH_output.innerHTML = AH_slider.value; // Display the default slider value
-
-            // Update the current slider value (each time you drag the slider handle)
-            AH_slider.oninput = function () {
-                AH_output.innerHTML = this.value;
             }
-
+            form.action += '?' + values.join('&');
 
         }
+    </script>
+    <script>
+        // var KB_slider = document.getElementById("KB_slider");
+        // var KB_output = document.getElementById("KB_value");
+        
+        // AH_slider.oninput = function () {
+        //         AH_output.innerHTML = this.value;
+        //     }
+
+
+        // // Update the current slider value (each time you drag the slider handle)
+        //     KB_slider.oninput = function () {
+
+        //     var AH_slider = document.getElementById("AH_slider");
+        //     var AH_output = document.getElementById("AH_value");
+        //     // AH_output.innerHTML = AH_slider.value; // Display the default slider value
+        //     // KB_output.innerHTML = KB_slider.value; // Display the default slider value
+        //     // Update the current slider value (each time you drag the slider handle)
+          
+
+        // }
     </script>
 </body>
 

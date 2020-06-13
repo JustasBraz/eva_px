@@ -10,7 +10,7 @@ var loaded;
 
 
 var w = window.innerWidth;
-var h = window.innerHeight;
+var h = window.innerHeight - 60;
 var canvas;
 
 
@@ -34,7 +34,7 @@ function loadData() {
 
         // circles.push(circle)
 
-        console.log(circle.title)
+        // console.log(circle.title)
         let color = get_category(circle.circle.category)
         let r = get_radius(circle.circle.frequency)
 
@@ -71,7 +71,7 @@ function loadData() {
 }
 
 function generate_coordinates(lims) {
-    let MAX_RADIUS = 20
+    let MAX_RADIUS = 50;
     var x, y;
 
     function generate() {
@@ -79,23 +79,35 @@ function generate_coordinates(lims) {
         y = random(lims[1], lims[3])
     }
     generate();
+
     let circles_len = circles.length;
+    // console.log('len:',circles_len)
     if (circles_len > 0) {
         for (let i = 0; i < circles_len; i++) {
+            // console.log('current', x,y)
             let cx = circles[i].x;
             let cy = circles[i].y;
 
             if (dist(x, y, cx, cy) > MAX_RADIUS) {
-                return [x, y]
+                // console.log(i,int(dist(x, y, cx, cy)), MAX_RADIUS)
+               continue;
             } else {
+                let counter=0;
                 while (dist(x, y, cx, cy) < MAX_RADIUS) {
+                    counter++;
                     generate();
-                    console.log('regenerating', x, y)
+                    i=0;
+                    if(counter>10){
+                        return [x, y];
+
+                    }
+                    // console.log('regenerating', x, y,'because', dist(x, y, cx, cy), MAX_RADIUS)
                 }
-                return [x, y]
+               // return [x, y]
             }
 
         }
+        return [x, y];
 
     } else {
         generate();
@@ -104,18 +116,19 @@ function generate_coordinates(lims) {
 }
 
 function get_category(categ_json) {
+    let alpha=150;
     switch (categ_json) {
         case 'transportation': //blue
-            return color(0, 0, 255);
+            return color(0, 0, 255,alpha);
 
         case 'supermarket': //yellow
-            return color(255, 255, 0);
+            return color(255, 255, 0,alpha);
 
         case 'other': //red
-            return color(255, 0, 0);
+            return color(255, 0, 0,alpha);
 
         default:
-            return color(125);
+            return color(125,alpha);
 
     }
 }
@@ -127,10 +140,10 @@ function get_radius(r_json) {
             return 40
 
         case 'sometimes': //sometimes
-            return 15
+            return 30
 
         case 'rare': //rare
-            return 5
+            return 20
 
         default:
             return 5
@@ -141,64 +154,59 @@ function get_radius(r_json) {
 function determine_quadrant(KB, AH) {
     //KB Kind-Bossy
     //AH Artificial human
-  
-    let w_offset = 0.05 * w;
-    let h_offset = 0.1 * h;
-    let q1 = [w_offset, h_offset, width / 2, height / 2];
-    let q2 = [width / 2, h_offset, width - w_offset, height / 2];
-    let q3 = [w_offset, height / 2, width / 2, height - h_offset];
-    let q4 = [width / 2, height / 2, width - w_offset, height - h_offset];
 
-    /////////Artific////////
-    ///   q1   |   q2    ///
-    //K--------|---------B//
-    ///   q3   |   q4    ///
-    /////////Human//////////
+    let w_0=0.05 * w;
+    let w_1=w-w_0;
 
+    let y_0=0.05 * h;
+    let y_1=h-y_0;
 
-    if (KB < mid_value && AH < mid_value) {
-        return q1
-    }
-    if (KB > mid_value && AH < mid_value) {
-        return q2
-    }
-    if (KB < mid_value && AH > mid_value) {
-        return q3
-    }
-    if (KB > mid_value && AH > mid_value) {
-        return q4
-    } else {
-        return [0, 0, width, height]
+    let Ux=w_1/6.2;
+    let Uy=y_1/6.2;
 
-    }
+    return [(KB+0)*Ux+w_0, (AH+0)*Uy+y_0, (KB+1)*Ux+w_0,(AH+1)*Uy+y_0 ]
+
 
 }
 
 function quadrant_lines(col) {
-    stroke(col); {}
-
-    line(w / 2, 0, w / 2, h);
+    stroke(col); 
+    strokeWeight(0.8);
     line(0, h / 2, w, h / 2);
+    line(w / 2, 0, w / 2, h);
+   
 
 }
 
 function quadrant_text() {
-    let offset = 20;
+    let off_t = 5;
     textSize(18);
     textAlign(CENTER);
+    fill(255);
+    noStroke();
+    //artificial
+    rect(w / 2 + 50, 50, -100, -50);
+    //natural
+    rect(w / 2 + 50, h, -100, -35);
+    //authoritarian
+    rect(w + 45, h / 2 + 10, -200, -25);
+    //benevolent
+    rect(140, h / 2 + 10, -200, -25);
+
+
+
     fill(145)
+    text('ARTIFICIAL', w / 2, 45)
+    text('NATURAL', w / 2, h - 20)
 
-    text('Artificial', w / 2, offset)
-    text('Human', w / 2, h - offset)
-
-    text('Kind', offset, h / 2)
-    text('Bossy', w - offset, h / 2)
+    text('BENEVOLENT', 80, h / 2 + off_t)
+    text('AUTHORITARIAN', w - 80, h / 2 + off_t)
 
 }
 
 function setup() {
-    canvas = createCanvas(w,h);
-    canvas.position(0, 50);
+    canvas = createCanvas(w, h);
+    canvas.position(0, 60);
     canvas.style('z-index', '-1')
     loadData();
     amp = new p5.Amplitude();
@@ -209,20 +217,29 @@ function draw() {
     // textSize(20);
     fill(0)
 
-    // text(circles[0]['title'], 50, 50)
-    quadrant_lines(200);
+    quadrant_lines(100);
     quadrant_text();
 
 
     // Display all bubbles
     for (let i = 0; i < circles.length; i++) {
         circles[i].display();
-       // circles[i].move();
+         //circles[i].move();
 
         circles[i].rollover(mouseX, mouseY);
+
+        //DEBUG:
+    //     rectMode(CORNERS); // Set rectMode to CORNERS
+    //    noFill();
+    //      let q1=circles[i].boundary;
+    //     rect(q1[0], q1[1], q1[2], q1[3]);
+    //     rectMode(CORNER); // Set rectMode to CORNERS
+
+
     }
 
-//console.log(circles[0].x,circles[0].y)
+   
+
 
 }
 
@@ -235,8 +252,8 @@ class Record {
         this.color = color;
         this.radius = r;
         this.diameter = r * 2;
-        this.x_noise=random(-9999,9999);
-        this.y_noise=random(-9999,9999);
+        this.x_noise = random(-9999, 9999);
+        this.y_noise = random(-9999, 9999);
 
 
         this.title = metadata['title'];
@@ -249,11 +266,11 @@ class Record {
         this.date = metadata['date']
         this.location = metadata['location']
 
-        this.n_w=undefined;
-        this.n_w=undefined;
+        this.n_w = undefined;
+        this.n_w = undefined;
 
         this.over = false;
-        this.step=0.001;
+        this.step = 0.001;
     }
 
     // Check if mouse is over the bubble
@@ -262,23 +279,25 @@ class Record {
         this.over = d < this.radius;
     }
 
-    move(){
-      
+    move() {
 
-        this.x_noise+=this.step;
-        this.y_noise+= this.step;
+
+        this.x_noise += this.step;
+        this.y_noise += this.step;
         this.n_w = noise(this.x_noise);
         this.n_h = noise(this.y_noise);
 
-        this.x=map(this.n_w,0,1 ,this.boundary[0],this.boundary[1])
-        this.y=map(this.n_h,0,1 ,this.boundary[2],this.boundary[3])
-        //console.log(this.id, this.x,this.y)
+        this.x = map(this.n_w, 0, 1, this.boundary[0], this.boundary[1])
+        this.y = map(this.n_h, 0, 1, this.boundary[2], this.boundary[3])
+
 
     }
     // Display the Bubble
     display() {
+        let strokeWidth=0.2;
+        let alpha=0;
         stroke(0);
-        strokeWeight(0.8);
+        strokeWeight(strokeWidth);
         let changed_html = false;
         if (this.over) {
             strokeWeight(0);
@@ -286,15 +305,15 @@ class Record {
             fill(0)
             text(this.title, this.x, this.y + this.radius + 20);
             // console.log(this.title, this.id)
-            strokeWeight(2);
+            strokeWeight(1);
 
             //MODIFY HTML
             //if(!changed_html){}
-            document.getElementById('text_overlay').style.display = "block"; //none
+            document.getElementById('text_overlay').style.display = "inline-block"; //none
 
             document.getElementById('record_title').innerHTML = this.title;
-            document.getElementById('record_description').innerHTML = this.description;
-            document.getElementById('record_type').innerHTML = 'In a '+this.type;
+            // document.getElementById('record_description').innerHTML = this.description;
+            // document.getElementById('record_type').innerHTML = 'In a '+this.type;
             document.getElementById('record_date').innerHTML = this.date;
             document.getElementById('record_location').innerHTML = this.location;
 
@@ -303,38 +322,38 @@ class Record {
             //console.log(mouseIsPressed)
 
             if (CLICKED) {
-                if (current_selection ==this.id){
+                if (current_selection == this.id) {
 
-                    if(song.isPlaying()){
+                    if (song.isPlaying()) {
                         song.pause();
+                    } else {
+                        song.play();
                     }
-                    else{song.play();}
-                }
-                else{
+                } else {
                     try {
                         song.stop();
                         console.log('stopped ', this.id)
                     } catch (error) {
                         console.log('no song was playing')
                     }
-                    song_loading=true;
-    
-                    song = loadSound('static/files/'+ this.id +'/' + this.id + '.mp3', song_loaded);
+                    song_loading = true;
+
+                    song = loadSound('static/files/' + this.id + '/' + this.id + '.mp3', song_loaded);
                     //files/'+this.id+'/'+this.id+'.mp3
                     //static/songs/t
                     console.log(song);
                     current_selection = this.id;
                 }
-             
+
             }
             CLICKED = false;
         }
 
 
-    
 
-        if (current_selection ==this.id) {
-            if(song_loading){
+
+        if (current_selection == this.id) {
+            if (song_loading) {
                 strokeWeight(0);
                 stroke(0);
                 fill(155);
@@ -342,32 +361,31 @@ class Record {
                 text('Loading audio...', this.x, this.y + this.radius + 20);
                 document.getElementById('record_play').innerHTML = 'Loading audio..';
 
-    
-            }
-            else{
+
+            } else {
                 document.getElementById('record_play').innerHTML = 'Now Playing';
 
             }
 
             try {
                 let level = amp.getLevel();
-                let size = map(level, 0, 1, this.diameter, this.diameter+30);
+                let size = map(level, 0, 1, this.diameter, this.diameter + 30);
                 fill(this.color)
                 ellipse(this.x, this.y, size, size);
-                strokeWeight(0.8);
+                strokeWeight(strokeWidth);
 
 
             } catch (error) {
 
             }
 
-        }else{
-            
+        } else {
+
             fill(this.color)
             ellipse(this.x, this.y, this.diameter, this.diameter);
-            strokeWeight(0.8);
+            strokeWeight(strokeWidth);
         }
-        
+
 
 
     }
@@ -385,13 +403,13 @@ function song_loaded() {
     } else {
         song.play();
     }
-    song_loading=false;
+    song_loading = false;
 
 }
 window.onresize = function () {
     // assigns new values for width and height variables
     w = window.innerWidth;
-    h = window.innerHeight;
+    h = window.innerHeight - 60;
     canvas.size(w, h);
     location.reload(true)
 }

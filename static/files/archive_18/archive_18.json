@@ -1,0 +1,16 @@
+{
+    "title": "New York Shuttle",
+    "description": "Train Announcements in New York",
+    "location": "online",
+    "archive_id": "archive_18",
+    "date": "30-05-2020",
+    "circle": {
+        "category": "other",
+        "frequency": "rare",
+        "KB_score": 3,
+        "AH_score": 2
+    },
+    "language":"Dutch",
+    "mem_sentences":" "
+
+}

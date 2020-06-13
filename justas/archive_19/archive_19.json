@@ -1,0 +1,16 @@
+{
+    "title": "Victoria line",
+    "description": "Underground Announcements",
+    "location": "London",
+    "archive_id": "archive_19",
+    "date": "25-01-2020",
+    "circle": {
+        "category": "transportation",
+        "frequency": "often",
+        "KB_score": 5,
+        "AH_score": 2
+    },
+    "language":"English",
+    "mem_sentences":" "
+
+}

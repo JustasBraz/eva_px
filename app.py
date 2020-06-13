@@ -13,6 +13,8 @@ DEBUG=True
 
 ALLOWED_EXTENSIONS = {'mp3'}
 
+main_dir=''#'mysite/'
+
 #########################
 #   MAIN USER ROUTES    #
 #########################
@@ -45,23 +47,7 @@ def handleFileUpload():
                 else:
                     shutil.rmtree(new_archive)
                     print('removed', new_archive)
-
-
-#app.config['UPLOAD_FOLDER']
-
-    
-    
-    #non-mandatory
-
-
-
-
     print('FORM UPLOADING\n')
-
-
-
-
-   
     return redirect(url_for('fileFrontPage'))
 
 ########################
@@ -70,15 +56,14 @@ def handleFileUpload():
 
 @app.route("/backlog")
 def backlog_route():
-    my_path='./static/files/'
-
+    my_path=main_dir+'static/files/'
+    #my_path='static/files/'
     dir_list = []
     for (dirpath, dirnames, filenames) in walk(my_path):
         dir_list.extend(dirnames)
         break
-    print("pre-sorted",dir_list)
-    dir_list.sort()
-    print("sorted",dir_list)
+    print("directories",dir_list)
+   
 
     data=[]
 
@@ -97,18 +82,22 @@ def backlog_route():
 
 
 def create_new_archive():
-    my_path='./static/files/'
+    my_path=main_dir+'static/files/'
 
     dir_list = []
     for (dirpath, dirnames, filenames) in walk(my_path):
         dir_list.extend(dirnames)
         break
     print("pre-sorted",dir_list)
-    dir_list.sort(reverse=True)
+
+    new_list=[]
+    for item in dir_list:
+        new_list.append(int(item.replace('archive_','')))
+    new_list.sort(reverse=True)
     print("sorted",dir_list)
 
     #get the most recent id
-    current_id=int(dir_list[0].replace('archive_',''))
+    current_id=int(new_list[0])
     next_id=str(current_id+1)
     print("next_id",next_id)
 
@@ -147,9 +136,8 @@ def create_json_file(request,new_archive,archive_id):
             }
 
         try:
-            new_dict['mem_sentence_1']=request.args['mem_sentence_1']
-            new_dict['mem_sentence_2']=request.args['mem_sentence_2']
-            new_dict['mem_sentence_3']=request.args['mem_sentence_3']
+            new_dict['mem_sentence']=request.args['mem_sentence']
+      
 
         except:
             print('No memorable sentence')

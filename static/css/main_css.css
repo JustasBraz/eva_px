@@ -1,0 +1,172 @@
+body {
+    margin: 0;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 200;
+
+
+}
+
+canvas {
+    display: block;
+}
+
+text {}
+
+.italic {
+    display: inline-block;
+
+    font-style: italic;
+}
+
+.regular_header {
+
+    display: inline-block;
+}
+
+p {
+    margin-top: 0px;
+    margin-bottom: 0.15em;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+
+.inline {
+    display: inline-block;
+}
+#text_overlay {
+    padding-top: 8em;
+    padding-left : 5em;    
+}
+#header{
+    z-index: 1;
+}
+#sub_header_main {
+    /* display: inline-block; */
+    position: absolute;
+    padding-left: 5em;
+    /* max-height: 2em; */
+    /* height: 100%; */
+    /* overflow: hidden; */
+
+
+}
+
+#sub_header {
+    /* display: inline-block; */
+    float: right;
+    padding-top: 0.75em;
+    max-height: 2em;
+    height: 100%;
+}
+
+@media (max-width: 1300px) {
+    #sub_header {
+        /* Overrides the above styles on screens larger than 36em */
+        float: left;
+        padding-left: 5em;
+    }
+
+    #sub_header_main {
+        max-height: 2em;
+
+        position: relative;
+    }
+    #text_overlay {
+        position: fixed;
+        position: fixed;
+        top: 0;
+        /* right: 0; */
+        left:0
+
+
+    
+    }
+}
+@media (max-width: 777px) {
+    #sub_header {
+        /* Overrides the above styles on screens larger than 36em */
+        float: left;
+        /* padding-left: 2em; */
+
+        padding-top: 4em;
+    }
+
+    #text_overlay {
+     padding-top: 7.5em;
+
+
+    
+    }
+   
+}
+@media (max-width: 530px) {
+    #sub_header {
+        max-height: 2em;
+
+        /* Overrides the above styles on screens larger than 36em */
+        float: left;
+        /* padding-left: 2em; */
+
+        padding-top: 6em;
+    }
+    #text_overlay {
+        padding-top: 15em;
+       
+       }
+   
+      h3{
+        margin-top: 0.1em;
+        margin-bottom: 0em;
+        margin-right: 0px;
+        margin-left: 0px;
+
+      } 
+}
+
+
+
+
+.sub_header_links {
+    display: inline-block;
+    padding-right: 5em;
+    color: black;
+
+}
+
+.sub_header_links:hover {
+
+    display: inline-block;
+    color: gray;
+    font-family: 'Raleway';
+    font-weight: 600;
+}
+
+.anchor_header {
+    text-decoration: none;
+    color: black;
+}
+
+.anchor_header:hover {
+
+    display: inline-block;
+
+    color: gray;
+    font-family: 'Raleway';
+    font-weight: 600;
+}
+
+.MyComponent {
+    /* Base styles that work for any screen size */
+}
+
+@media (min-width: 36em) {
+    .MyComponent {
+        /* Overrides the above styles on screens larger than 36em */
+    }
+}
+
+@media (min-width: 48em) {
+    .MyComponent {
+        /* Overrides the above styles on screens larger than 48em */
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "title": "Kings Cross",
+    "description": "Train Station Announcements",
+    "location": "London",
+    "archive_id": "archive_2",
+    "date": "13-02-2020",
+    "circle": {
+        "category": "transportation",
+        "frequency": "sometimes",
+        "KB_score": 4,
+        "AH_score": 2
+    },
+    "language":"English",
+    "mem_sentences":"Please do not leave your luggage unattended in the station. Luggage left unattended may be removed without warning or destroyed or damaged by the security services.Security personnel tour this station 24 hours a day."
+
+}
