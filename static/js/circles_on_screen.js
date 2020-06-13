@@ -25,6 +25,7 @@ function preload() {
     loaded = loadJSON(URL_JSON);
 }
 
+
 // Convert saved Bubble data into Bubble Objects
 function loadData() {
     let circleData = loaded.data;
