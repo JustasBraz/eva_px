@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>sound archive</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;600&display=swap');
+    </style>
+    <script type='text/javascript' src='//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/main_css.css') }}?v=0.0.1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/upload_css.css') }}?v=0.0.1">
+
+    <style>
+    #main_text{
+        width: 50%;
+        padding-top: 5em;
+        padding-left:5em;
+    }
+    #sub_text1 p{
+        padding-bottom: 1em;
+        text-align: justify;
+    }
+    #sub_text2 p{
+        /* padding-bottom: 1em; */
+        text-align: justify;
+    }
+    #img_div{
+        text-align: center;
+
+    }
+
+    </style>
+
+
+<body>
+    <div id="container"></div>
+
+    <div id='header'>
+
+        <div id='sub_header_main'>
+            <h1 class='regular_header'>sound archive: DISEMBODIED FEMALE VOICE</h1>
+        </div>
+
+        <div id='sub_header'>
+            <h3 class='sub_header_links'><a class='anchor_header' href="/about">ABOUT</a></h3>
+            <h3 class='sub_header_links'><a class='anchor_header' href="/upload">UPLOAD</a></h3>
+            <h3 class='sub_header_links'><a class='anchor_header' href="/">HOME</a></h3>
+        </div>
+    </div>
+
+    <div id='main_text'>
+        <h2>
+            ABOUT
+        </h2>
+        <div id='sub_text1'>
+        <p>
+            When we encounter the city in an everyday commute we hear many different sounds — cars, lorries, buses,
+            people walking and talking; loud ambulance, police and fire-engine sirens; underground and overground
+            trains, airplanes and helicopters, motorcycles, building construction sites, at times music, rain and wind;
+            in London even foxes and exceptionally loud robins.
+        </p>
+        <p>
+            An everyday commute through the city is also a commute through its distinct soundscape. If I stop, and
+            actively listen, I recognise patterns that form within the overwhelming cacophony — there are sounds that
+            occur more than others. One of the strangely recurring sounds when navigating public spaces in London is the
+            sound of a female voice.
+            The disembodied female voice projected through a set of speakers continuously guides, warns and informs
+            people in their everyday — the underground, train stations and buses, even the supermarket self-checkout
+            machines or the default settings for personal assistants on our smartphones. Why is the disembodied female
+            voice so ubiquitous in the neoliberal city?
+        </p>
+        <p>
+            The everyday we live in is a world where knowledge formation as well as its transmission are inherently
+            visual — written, drawn, seen, shown and displayed — to see, in a society that privileges vision, means to
+            understand. To focus on hearing then is to imagine, to wonder, to speculate and to question. Active
+            listening to various sounds throughout the neoliberal city allows us to discern the structural and societal
+            mechanisms that determine our everyday lives. By neoliberal I refer to the political process that rendered
+            urban assets and built environments as crucial in the current forms of capitalist accumulation. Most spatial
+            changes occurring in the built environment are thus evidence of a hegemonic project. Listening to the
+            recurring disembodied female voice in particular speaks about the notions of gender and forms of control in
+            the modern city governed by neoliberal ideology.
+        </p>
+        <p>
+            I argue active listening to the neoliberal city is an inherently feminist project, since it is refusing to
+            accept the everyday sounds as simply the way things are. In this work I critically attune to the city by way
+            of active listening, to understand structural forces that comprise it. Listening is a useful investigative
+            tool for the built environment, especially for the ways in which sociopolitical processes affect, and are in
+            turn affected by, existing and changing spatial structures.
+        </p>
+        <p>
+            This website functions as an original sound archive for the disembodied female voice in public spaces -
+            starting from London, expanding to different countries and languages. By simplifying the categories, users
+            are able to easily interact with the archive and upload their own recordings from their own everyday. Its
+            initial aim is to collect a bigger amount of recordings in order to be able to compare them, and draw
+            conclusions. As the database grows, so does the structure of the archive change - more qualities can be
+            juxtaposed, more public spaces compared.
+        </p>
+        <p>
+            Does the way the voice instructs depend on the typology of space in which it occurs? Why do security
+            announcements sound the same as platform informations? Does the voice change based on the amount of people
+            it addresses? Do female voices aimed at individuals sound more seductive?
+        </p>
+    </div>
+        <h4>
+            Sound Archive notation
+        </h4>
+        <div id='sub_text2'>
+        <p>
+            The archive is structured based on the public space in which the voice is projected, as well as the way in
+            which it gives information, instructions and orders. The colour of the circle represents the type of public
+            space, and the size represents how often an individual hears it in their everyday. Smaller circles show less
+            often experienced spaces and their appurtenant disembodied female voices. The screen is used to visually
+            represent the quality of the voice.
+        </p>
+        <div id='img_div'>
+            <img src="../static/notation.png" alt="Notation" width=70%>
+        </div>
+        <p>
+            As the archive grows, its form will begin to morph around received recordings. Since sound perception relies
+            on acoustic qualities of space as much as it does on psychology of the listener (what sounds benevolent and
+            natural to me sounds perhaps authoritative to someone with a different cultural background).
+            It is currently in its initial stage of the journey of adapting to new material and adopting new approaches
+            of displaying and interacting with it.
+        </p>
+        </div>
+    </div>
+
+    <script>
+        function process() {
+            var form = document.getElementById('data');
+            var elements = form.elements;
+            var values = [];
+            already_checked_cat = false;
+            already_checked_freq = false;
+
+            for (var i = 0; i < elements.length; i++) {
+                //document.querySelector('input[name=genderS]:checked').value
+                console.log(elements[i])
+                if (elements[i].name == 'frequency' && already_checked_freq == false) {
+                    value = document.querySelector('input[name=frequency]:checked').value;
+                    values.push(encodeURIComponent(elements[i].name) + '=' + encodeURIComponent(value));
+                    already_checked_freq = true;
+                }
+                if (elements[i].name == 'category' && already_checked_cat == false) {
+                    value = document.querySelector('input[name=category]:checked').value;
+                    values.push(encodeURIComponent(elements[i].name) + '=' + encodeURIComponent(value));
+                    already_checked_cat = true;
+
+
+                } else {
+                    values.push(encodeURIComponent(elements[i].name) + '=' + encodeURIComponent(elements[i].value));
+
+                }
+            }
+            form.action += '?' + values.join('&');
+
+        }
+    </script>
+    <script>
+        // var KB_slider = document.getElementById("KB_slider");
+        // var KB_output = document.getElementById("KB_value");
+
+        // AH_slider.oninput = function () {
+        //         AH_output.innerHTML = this.value;
+        //     }
+
+
+        // // Update the current slider value (each time you drag the slider handle)
+        //     KB_slider.oninput = function () {
+
+        //     var AH_slider = document.getElementById("AH_slider");
+        //     var AH_output = document.getElementById("AH_value");
+        //     // AH_output.innerHTML = AH_slider.value; // Display the default slider value
+        //     // KB_output.innerHTML = KB_slider.value; // Display the default slider value
+        //     // Update the current slider value (each time you drag the slider handle)
+
+
+        // }
+    </script>
+</body>
+
+</html>

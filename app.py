@@ -29,6 +29,11 @@ def upload_page():
     #return "hello there"#render_template('fileform.html')
     return render_template('upload_page.html')
 
+@app.route("/about")
+def about_page():
+    #return "hello there"#render_template('fileform.html')
+    return render_template('about_page.html')
+
 @app.route("/handleUpload", methods=['POST','GET'])
 def handleFileUpload():
     print('\nFORM UPLOADING')
