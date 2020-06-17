@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Raleway', sans-serif;
-    font-weight: 200;
+    font-weight: 100;
 
 
 }
@@ -21,6 +21,7 @@ text {}
 .regular_header {
 
     display: inline-block;
+    font-weight: 100;
 }
 
 p {
