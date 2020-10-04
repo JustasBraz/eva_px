@@ -1,6 +1,7 @@
 URL_JSON = "/backlog"
 
-var CLICKED = false;;
+var CLICKED = false;
+var MID_CLICK = false;
 
 
 let data = {}; // Global object to hold results from the loadJSON call
@@ -91,20 +92,20 @@ function generate_coordinates(lims) {
 
             if (dist(x, y, cx, cy) > MAX_RADIUS) {
                 // console.log(i,int(dist(x, y, cx, cy)), MAX_RADIUS)
-               continue;
+                continue;
             } else {
-                let counter=0;
+                let counter = 0;
                 while (dist(x, y, cx, cy) < MAX_RADIUS) {
                     counter++;
                     generate();
-                    i=0;
-                    if(counter>10){
+                    i = 0;
+                    if (counter > 10) {
                         return [x, y];
 
                     }
                     // console.log('regenerating', x, y,'because', dist(x, y, cx, cy), MAX_RADIUS)
                 }
-               // return [x, y]
+                // return [x, y]
             }
 
         }
@@ -117,19 +118,19 @@ function generate_coordinates(lims) {
 }
 
 function get_category(categ_json) {
-    let alpha=150;
+    let alpha = 150;
     switch (categ_json) {
         case 'transportation': //blue
-            return color(0, 0, 255,alpha);
+            return color(0, 0, 255, alpha);
 
         case 'supermarket': //yellow
-            return color(255, 255, 0,alpha);
+            return color(255, 255, 0, alpha);
 
         case 'other': //red
-            return color(255, 0, 0,alpha);
+            return color(255, 0, 0, alpha);
 
         default:
-            return color(125,alpha);
+            return color(125, alpha);
 
     }
 }
@@ -156,26 +157,26 @@ function determine_quadrant(KB, AH) {
     //KB Kind-Bossy
     //AH Artificial human
 
-    let w_0=0.05 * w;
-    let w_1=w-w_0;
+    let w_0 = 0.05 * w;
+    let w_1 = w - w_0;
 
-    let y_0=0.05 * h;
-    let y_1=h-y_0;
+    let y_0 = 0.05 * h;
+    let y_1 = h - y_0;
 
-    let Ux=w_1/6.2;
-    let Uy=y_1/6.2;
+    let Ux = w_1 / 6.2;
+    let Uy = y_1 / 6.2;
 
-    return [(KB+0)*Ux+w_0, (AH+0)*Uy+y_0, (KB+1)*Ux+w_0,(AH+1)*Uy+y_0 ]
+    return [(KB + 0) * Ux + w_0, (AH + 0) * Uy + y_0, (KB + 1) * Ux + w_0, (AH + 1) * Uy + y_0]
 
 
 }
 
 function quadrant_lines(col) {
-    stroke(col); 
+    stroke(col);
     strokeWeight(0.8);
     line(0, h / 2, w, h / 2);
     line(w / 2, 0, w / 2, h);
-   
+
 
 }
 
@@ -225,21 +226,21 @@ function draw() {
     // Display all bubbles
     for (let i = 0; i < circles.length; i++) {
         circles[i].display();
-         //circles[i].move();
+        circles[i].move();
 
         circles[i].rollover(mouseX, mouseY);
 
         //DEBUG:
-    //     rectMode(CORNERS); // Set rectMode to CORNERS
-    //    noFill();
-    //      let q1=circles[i].boundary;
-    //     rect(q1[0], q1[1], q1[2], q1[3]);
-    //     rectMode(CORNER); // Set rectMode to CORNERS
+        //     rectMode(CORNERS); // Set rectMode to CORNERS
+        //    noFill();
+        //      let q1=circles[i].boundary;
+        //     rect(q1[0], q1[1], q1[2], q1[3]);
+        //     rectMode(CORNER); // Set rectMode to CORNERS
 
 
     }
 
-   
+
 
 
 }
@@ -282,21 +283,20 @@ class Record {
 
     move() {
 
-
         this.x_noise += this.step;
         this.y_noise += this.step;
         this.n_w = noise(this.x_noise);
         this.n_h = noise(this.y_noise);
 
-        this.x = map(this.n_w, 0, 1, this.boundary[0], this.boundary[1])
-        this.y = map(this.n_h, 0, 1, this.boundary[2], this.boundary[3])
+        this.x = map(this.n_w, 0, 1, this.boundary[0], this.boundary[2])
+        this.y = map(this.n_h, 0, 1, this.boundary[1], this.boundary[3])
 
 
     }
     // Display the Bubble
     display() {
-        let strokeWidth=0.2;
-        let alpha=0;
+        let strokeWidth = 0.2;
+        let alpha = 0;
         stroke(0);
         strokeWeight(strokeWidth);
         let changed_html = false;
@@ -322,7 +322,8 @@ class Record {
 
             //console.log(mouseIsPressed)
 
-            if (CLICKED) {
+            if (CLICKED && !song_loading) {
+
                 if (current_selection == this.id) {
 
                     if (song.isPlaying()) {
@@ -333,6 +334,7 @@ class Record {
                 } else {
                     try {
                         song.stop();
+                        document.getElementById('record_play').innerHTML = 'Stopped';
                         console.log('stopped ', this.id)
                     } catch (error) {
                         console.log('no song was playing')
@@ -340,8 +342,7 @@ class Record {
                     song_loading = true;
 
                     song = loadSound('static/files/' + this.id + '/' + this.id + '.mp3', song_loaded);
-                    //files/'+this.id+'/'+this.id+'.mp3
-                    //static/songs/t
+
                     console.log(song);
                     current_selection = this.id;
                 }
@@ -349,8 +350,6 @@ class Record {
             }
             CLICKED = false;
         }
-
-
 
 
         if (current_selection == this.id) {
@@ -361,11 +360,12 @@ class Record {
                 textSize(10);
                 text('Loading audio...', this.x, this.y + this.radius + 20);
                 document.getElementById('record_play').innerHTML = 'Loading audio..';
-
-
             } else {
-                document.getElementById('record_play').innerHTML = 'Now Playing';
 
+                if (song.isPlaying()) {
+                    document.getElementById('record_play').innerHTML = 'Now Playing';
+                } else {
+                    document.getElementById('record_play').innerHTML = 'Stopped';                }
             }
 
             try {
@@ -374,14 +374,9 @@ class Record {
                 fill(this.color)
                 ellipse(this.x, this.y, size, size);
                 strokeWeight(strokeWidth);
-
-
-            } catch (error) {
-
-            }
+            } catch (error) {}
 
         } else {
-
             fill(this.color)
             ellipse(this.x, this.y, this.diameter, this.diameter);
             strokeWeight(strokeWidth);
